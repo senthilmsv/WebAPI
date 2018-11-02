@@ -23,10 +23,8 @@ namespace WebAPI.DbEntity
         public string RoleId { get; set; }
         public string RoleName { get; set; }
         public string Description { get; set; }
-        public string SiteId { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Group> Groups { get; set; }
-        public virtual Site Site { get; set; }
     }
 }

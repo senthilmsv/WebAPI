@@ -14,6 +14,12 @@ namespace WebAPI.DbEntity
     
     public partial class Group
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Group()
+        {
+            this.UserGroups = new HashSet<UserGroup>();
+        }
+    
         public string GroupId { get; set; }
         public string GroupName { get; set; }
         public string Description { get; set; }
@@ -22,5 +28,7 @@ namespace WebAPI.DbEntity
     
         public virtual Role Role { get; set; }
         public virtual Site Site { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<UserGroup> UserGroups { get; set; }
     }
 }

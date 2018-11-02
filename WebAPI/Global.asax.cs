@@ -25,6 +25,12 @@ namespace WebAPI
             GlobalConfiguration.Configuration.Formatters.XmlFormatter.MediaTypeMappings.Add(new QueryStringMapping("xml", "true", "application/xml"));
             GlobalConfiguration.Configuration.Formatters.JsonFormatter.SupportedMediaTypes.Add(new MediaTypeHeaderValue("text/html"));
 
+
+            //HttpConfiguration config = GlobalConfiguration.Configuration;
+
+            //config.Formatters.JsonFormatter
+            //            .SerializerSettings
+            //            .ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
         }
     }
 }

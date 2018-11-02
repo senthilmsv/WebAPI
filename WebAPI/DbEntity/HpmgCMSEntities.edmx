@@ -22,7 +22,6 @@
           <Property Name="RoleId" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="RoleName" Type="nvarchar" MaxLength="256" Nullable="false" />
           <Property Name="Description" Type="nvarchar(max)" />
-          <Property Name="SiteId" Type="nvarchar" MaxLength="128" Nullable="false" />
         </EntityType>
         <EntityType Name="Sites">
           <Key>
@@ -44,9 +43,9 @@
         </EntityType>
         <EntityType Name="UserGroup">
           <Key>
-            <PropertyRef Name="GroupId" />
-            <PropertyRef Name="UserId" />
+            <PropertyRef Name="UserGroupId" />
           </Key>
+          <Property Name="UserGroupId" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="GroupId" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
         </EntityType>
@@ -55,7 +54,7 @@
             <PropertyRef Name="UserId" />
           </Key>
           <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="Nuid" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Nuid" Type="nvarchar" MaxLength="10" Nullable="false" />
           <Property Name="FirstName" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="LastName" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="Email" Type="nvarchar" MaxLength="256" />
@@ -84,7 +83,7 @@ warning 6002: The table/view 'HpmgCMS.dbo.vwUserByGroup' does not have a primary
           <Property Name="SiteId" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="SiteName" Type="nvarchar" MaxLength="256" Nullable="false" />
           <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="Nuid" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Nuid" Type="nvarchar" MaxLength="10" Nullable="false" />
           <Property Name="FirstName" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="LastName" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="UserName" Type="nvarchar" MaxLength="202" Nullable="false" />
@@ -114,17 +113,15 @@ warning 6002: The table/view 'HpmgCMS.dbo.vwUserByGroup' does not have a primary
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Roles_Sites">
-          <End Role="Sites" Type="Self.Sites" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="Roles" Type="Self.Roles" Multiplicity="*" />
+        <Association Name="FK_UserGroup_Groups">
+          <End Role="Groups" Type="Self.Groups" Multiplicity="1" />
+          <End Role="UserGroup" Type="Self.UserGroup" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Sites">
-              <PropertyRef Name="SiteId" />
+            <Principal Role="Groups">
+              <PropertyRef Name="GroupId" />
             </Principal>
-            <Dependent Role="Roles">
-              <PropertyRef Name="SiteId" />
+            <Dependent Role="UserGroup">
+              <PropertyRef Name="GroupId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -172,9 +169,9 @@ warning 6002: The table/view 'HpmgCMS.dbo.vwUserByGroup' does not have a primary
             <End Role="Sites" EntitySet="Sites" />
             <End Role="Groups" EntitySet="Groups" />
           </AssociationSet>
-          <AssociationSet Name="FK_Roles_Sites" Association="Self.FK_Roles_Sites">
-            <End Role="Sites" EntitySet="Sites" />
-            <End Role="Roles" EntitySet="Roles" />
+          <AssociationSet Name="FK_UserGroup_Groups" Association="Self.FK_UserGroup_Groups">
+            <End Role="Groups" EntitySet="Groups" />
+            <End Role="UserGroup" EntitySet="UserGroup" />
           </AssociationSet>
           <AssociationSet Name="FK_UserGroup_Users" Association="Self.FK_UserGroup_Users">
             <End Role="Users" EntitySet="Users" />
@@ -197,6 +194,7 @@ warning 6002: The table/view 'HpmgCMS.dbo.vwUserByGroup' does not have a primary
           <Property Name="SiteId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Role" Relationship="Self.FK_Groups_Roles" FromRole="Groups" ToRole="Roles" />
           <NavigationProperty Name="Site" Relationship="Self.FK_Groups_Sites" FromRole="Groups" ToRole="Sites" />
+          <NavigationProperty Name="UserGroups" Relationship="Self.FK_UserGroup_Groups" FromRole="Groups" ToRole="UserGroup" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -205,9 +203,7 @@ warning 6002: The table/view 'HpmgCMS.dbo.vwUserByGroup' does not have a primary
           <Property Name="RoleId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="RoleName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="SiteId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Groups" Relationship="Self.FK_Groups_Roles" FromRole="Roles" ToRole="Groups" />
-          <NavigationProperty Name="Site" Relationship="Self.FK_Roles_Sites" FromRole="Roles" ToRole="Sites" />
         </EntityType>
         <EntityType Name="Site">
           <Key>
@@ -217,7 +213,6 @@ warning 6002: The table/view 'HpmgCMS.dbo.vwUserByGroup' does not have a primary
           <Property Name="SiteName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Groups" Relationship="Self.FK_Groups_Sites" FromRole="Sites" ToRole="Groups" />
-          <NavigationProperty Name="Roles" Relationship="Self.FK_Roles_Sites" FromRole="Sites" ToRole="Roles" />
         </EntityType>
         <EntityType Name="sysdiagram">
           <Key>
@@ -231,11 +226,12 @@ warning 6002: The table/view 'HpmgCMS.dbo.vwUserByGroup' does not have a primary
         </EntityType>
         <EntityType Name="UserGroup">
           <Key>
-            <PropertyRef Name="GroupId" />
-            <PropertyRef Name="UserId" />
+            <PropertyRef Name="UserGroupId" />
           </Key>
+          <Property Name="UserGroupId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="GroupId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Group" Relationship="Self.FK_UserGroup_Groups" FromRole="UserGroup" ToRole="Groups" />
           <NavigationProperty Name="User" Relationship="Self.FK_UserGroup_Users" FromRole="UserGroup" ToRole="Users" />
         </EntityType>
         <EntityType Name="User">
@@ -243,7 +239,7 @@ warning 6002: The table/view 'HpmgCMS.dbo.vwUserByGroup' does not have a primary
             <PropertyRef Name="UserId" />
           </Key>
           <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Nuid" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Nuid" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="FirstName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="LastName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
@@ -271,7 +267,7 @@ warning 6002: The table/view 'HpmgCMS.dbo.vwUserByGroup' does not have a primary
           <Property Name="SiteId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="SiteName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Nuid" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Nuid" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="FirstName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="LastName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="UserName" Type="String" MaxLength="202" FixedLength="false" Unicode="true" Nullable="false" />
@@ -301,17 +297,15 @@ warning 6002: The table/view 'HpmgCMS.dbo.vwUserByGroup' does not have a primary
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Roles_Sites">
-          <End Role="Sites" Type="Self.Site" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="Roles" Type="Self.Role" Multiplicity="*" />
+        <Association Name="FK_UserGroup_Groups">
+          <End Role="Groups" Type="Self.Group" Multiplicity="1" />
+          <End Role="UserGroup" Type="Self.UserGroup" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Sites">
-              <PropertyRef Name="SiteId" />
+            <Principal Role="Groups">
+              <PropertyRef Name="GroupId" />
             </Principal>
-            <Dependent Role="Roles">
-              <PropertyRef Name="SiteId" />
+            <Dependent Role="UserGroup">
+              <PropertyRef Name="GroupId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -327,7 +321,7 @@ warning 6002: The table/view 'HpmgCMS.dbo.vwUserByGroup' does not have a primary
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="HpmgCMSEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Groups" EntityType="Self.Group" />
           <EntitySet Name="Roles" EntityType="Self.Role" />
           <EntitySet Name="Sites" EntityType="Self.Site" />
@@ -343,9 +337,9 @@ warning 6002: The table/view 'HpmgCMS.dbo.vwUserByGroup' does not have a primary
             <End Role="Sites" EntitySet="Sites" />
             <End Role="Groups" EntitySet="Groups" />
           </AssociationSet>
-          <AssociationSet Name="FK_Roles_Sites" Association="Self.FK_Roles_Sites">
-            <End Role="Sites" EntitySet="Sites" />
-            <End Role="Roles" EntitySet="Roles" />
+          <AssociationSet Name="FK_UserGroup_Groups" Association="Self.FK_UserGroup_Groups">
+            <End Role="Groups" EntitySet="Groups" />
+            <End Role="UserGroup" EntitySet="UserGroups" />
           </AssociationSet>
           <AssociationSet Name="FK_UserGroup_Users" Association="Self.FK_UserGroup_Users">
             <End Role="Users" EntitySet="Users" />
@@ -357,7 +351,7 @@ warning 6002: The table/view 'HpmgCMS.dbo.vwUserByGroup' does not have a primary
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="HpmgCMSModelStoreContainer" CdmEntityContainer="Entities">
+        <EntityContainerMapping StorageEntityContainer="HpmgCMSModelStoreContainer" CdmEntityContainer="HpmgCMSEntities">
           <EntitySetMapping Name="Groups">
             <EntityTypeMapping TypeName="HpmgCMSModel.Group">
               <MappingFragment StoreEntitySet="Groups">
@@ -375,7 +369,6 @@ warning 6002: The table/view 'HpmgCMS.dbo.vwUserByGroup' does not have a primary
                 <ScalarProperty Name="RoleId" ColumnName="RoleId" />
                 <ScalarProperty Name="RoleName" ColumnName="RoleName" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="SiteId" ColumnName="SiteId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -402,6 +395,7 @@ warning 6002: The table/view 'HpmgCMS.dbo.vwUserByGroup' does not have a primary
           <EntitySetMapping Name="UserGroups">
             <EntityTypeMapping TypeName="HpmgCMSModel.UserGroup">
               <MappingFragment StoreEntitySet="UserGroup">
+                <ScalarProperty Name="UserGroupId" ColumnName="UserGroupId" />
                 <ScalarProperty Name="GroupId" ColumnName="GroupId" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
               </MappingFragment>

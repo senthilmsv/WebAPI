@@ -76,6 +76,8 @@ namespace WebAPI.Controllers
                 return BadRequest(ModelState);
             }
 
+            site.SiteId = System.Guid.NewGuid().ToString();
+
             db.Sites.Add(site);
 
             try

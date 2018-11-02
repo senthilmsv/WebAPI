@@ -18,7 +18,6 @@ namespace WebAPI.DbEntity
         public Site()
         {
             this.Groups = new HashSet<Group>();
-            this.Roles = new HashSet<Role>();
         }
     
         public string SiteId { get; set; }
@@ -27,7 +26,5 @@ namespace WebAPI.DbEntity
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Group> Groups { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Role> Roles { get; set; }
     }
 }

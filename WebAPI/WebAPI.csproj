@@ -96,13 +96,25 @@
       <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.5.0\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
     </Reference>
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.6\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
     <Reference Include="System.Security" />
+    <Reference Include="System.Web.Cors, Version=5.2.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Cors.5.2.6\lib\net45\System.Web.Cors.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Http, Version=5.2.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.6\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.Cors, Version=5.2.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Cors.5.2.6\lib\net45\System.Web.Http.Cors.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Abstractions" />
@@ -116,17 +128,11 @@
     </Reference>
     <Reference Include="System.Net.Http">
     </Reference>
-    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
-    </Reference>
     <Reference Include="System.Net.Http.WebRequest">
     </Reference>
     <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.Http.WebHost, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.3\lib\net45\System.Web.Http.WebHost.dll</HintPath>
@@ -202,40 +208,40 @@
     <Compile Include="Controllers\UserGroupsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="DbEntity\Group.cs">
-      <DependentUpon>HpmgCMS.tt</DependentUpon>
+      <DependentUpon>HpmgCMSEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="DbEntity\HpmgCMS.Context.cs">
+    <Compile Include="DbEntity\HpmgCMSEntities.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>HpmgCMS.Context.tt</DependentUpon>
+      <DependentUpon>HpmgCMSEntities.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="DbEntity\HpmgCMS.cs">
+    <Compile Include="DbEntity\HpmgCMSEntities.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>HpmgCMS.tt</DependentUpon>
+      <DependentUpon>HpmgCMSEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="DbEntity\HpmgCMS.Designer.cs">
+    <Compile Include="DbEntity\HpmgCMSEntities.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>HpmgCMS.edmx</DependentUpon>
+      <DependentUpon>HpmgCMSEntities.edmx</DependentUpon>
     </Compile>
     <Compile Include="DbEntity\Role.cs">
-      <DependentUpon>HpmgCMS.tt</DependentUpon>
+      <DependentUpon>HpmgCMSEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbEntity\Site.cs">
-      <DependentUpon>HpmgCMS.tt</DependentUpon>
+      <DependentUpon>HpmgCMSEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbEntity\sysdiagram.cs">
-      <DependentUpon>HpmgCMS.tt</DependentUpon>
+      <DependentUpon>HpmgCMSEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbEntity\User.cs">
-      <DependentUpon>HpmgCMS.tt</DependentUpon>
+      <DependentUpon>HpmgCMSEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbEntity\UserGroup.cs">
-      <DependentUpon>HpmgCMS.tt</DependentUpon>
+      <DependentUpon>HpmgCMSEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbEntity\vwUserByGroup.cs">
-      <DependentUpon>HpmgCMS.tt</DependentUpon>
+      <DependentUpon>HpmgCMSEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -246,16 +252,17 @@
     <Content Include="Areas\HelpPage\HelpPage.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="DbEntity\HpmgCMS.Context.tt">
+    <Content Include="DbEntity\HpmgCMSEntities.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>HpmgCMS.edmx</DependentUpon>
-      <LastGenOutput>HpmgCMS.Context.cs</LastGenOutput>
+      <DependentUpon>HpmgCMSEntities.edmx</DependentUpon>
+      <LastGenOutput>HpmgCMSEntities.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="DbEntity\HpmgCMS.tt">
+    <Content Include="DbEntity\HpmgCMSEntities.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>HpmgCMS.edmx</DependentUpon>
-      <LastGenOutput>HpmgCMS.cs</LastGenOutput>
+      <DependentUpon>HpmgCMSEntities.edmx</DependentUpon>
+      <LastGenOutput>HpmgCMSEntities.cs</LastGenOutput>
     </Content>
+    <Content Include="DbEntity\ReadMe.txt" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -283,12 +290,12 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <EntityDeploy Include="DbEntity\HpmgCMS.edmx">
+    <EntityDeploy Include="DbEntity\HpmgCMSEntities.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>HpmgCMS.Designer.cs</LastGenOutput>
+      <LastGenOutput>HpmgCMSEntities.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="DbEntity\HpmgCMS.edmx.diagram">
-      <DependentUpon>HpmgCMS.edmx</DependentUpon>
+    <Content Include="DbEntity\HpmgCMSEntities.edmx.diagram">
+      <DependentUpon>HpmgCMSEntities.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
